@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+
+{%block head%}
+<Title>Task Master</Title>
+{% endblock %}
+
+{%block body%}
+<ol> 
+<!-- For loop logic of jinja template -->
+{%for i in range(0, len)%} 
+  
+    <li>{{name_of_neighbor[i]}}, {{side_neighbor_isAttached[i]}}</li> 
+{%endfor%} 
+  
+</ol> 
+{% endblock %}

@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title>cluster Master</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Cluster Master</h1>
+    
+    <table>
+        <tr>
+            <th>Hexagon Name</th>
+            <th>Hexagon Neighbor</th>
+            <th>Hexagon Side</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.Name }}</td>
+                <td>{{task.Name_Neighbor}}</td>
+                <td>{{task.Side_Neighbor}}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Delete</a>
+                
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+
+    <div class="form">
+        <form action="/" method="POST">
+            
+            <input type="text" name="Name" id="Name">
+            <label for="Name"> Name of Hexagon</label><br>
+            
+            <input type = "text" name = "Name_Neighbor" id = "Name_Neighbor">
+            <label for="Name_Neighbor"> Name of Neighbor</label><br>
+            
+            <input type= "text" name = "Side_Neighbor" id="Side_Neighbor">
+            <label for="Side_Neighbor"> Side of Neighbor</label><br>
+            <input type="submit" value = "Submit">
+        </form>
+    </div>
+    <h1> Search for a Hexagon's Neighbors</h1>
+    <div class="form">
+        <form action="/results" method="POST">
+            <input type="text" name="Search" id="Search">
+            <label for="Search"> Enter name of Hexagon</label><br>
+            <input type="submit" value="Search">
+        </form>
+    </div>    
+</div>
+{% endblock %}
