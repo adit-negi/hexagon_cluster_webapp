@@ -52,8 +52,14 @@ def delete(id):
 
     task_to_delete = Todo.query.get_or_404(id)
     hexagon_to_delete = task_to_delete.Name
+    # Checking if Hexagon isn't the only link
     check_hexagon_list = Todo.query.filter_by(Name=hexagon_to_delete).all()
     number_of_neighbors = len(check_hexagon_list)
+    # Removing hexagon from Neighbors
+    delete_hexagon_neighbor_list = Todo.query.filter_by(
+        Name_Neighbor=hexagon_to_delete).all()
+
+    # List to check all neighbors are securely connected
     l = []
     flag = 0
     for i in range(number_of_neighbors):
@@ -68,6 +74,11 @@ def delete(id):
                 break
     if flag == 0:
         try:
+            # deleting neighbors
+            for i in range(len(delete_hexagon_neighbor_list)):
+                db.session.delete(Todo.query.get(
+                    delete_hexagon_neighbor_list[i].id))
+                db.session.commit()
             db.session.delete(task_to_delete)
             db.session.commit()
             return redirect('/')
